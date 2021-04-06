@@ -10,7 +10,7 @@ import routes from "./router";
 
 const router = new VueRouter({
   mode: "history",
-  base: "/newpc/",
+  base: "/newpc",
   routes,
   scrollBehavior() {
     return {

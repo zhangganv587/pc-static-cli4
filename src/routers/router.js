@@ -7,7 +7,6 @@
  */
 import View from "@/components/view";
 
-const Index = () => import(/* webpackChunkName:'index'*/ "@/pages/index");
 const NotFound = () =>
   import(/* webpackChunkName:'expcetion'*/ "@/pages/notfound");
 const NotPermission = () =>
@@ -16,7 +15,7 @@ const NetworkError = () =>
   import(/* webpackChunkName:'expcetion'*/ "@/pages/networkError");
 
 // -----------   PC基础版  -------------
-// import Base from './base';
+import Base from "./base";
 // -----------   支付页  -------------
 // import payRoute from './payStation';
 
@@ -33,17 +32,9 @@ export default [
         redirect: "/index",
         name: "index",
       },
-      //   ...Base,
+      ...Base,
       //   ...payRoute,
     ],
-  },
-  {
-    path: "/index",
-    component: Index,
-    meta: {
-      title: "首页",
-      needCheckAuth: false,
-    },
   },
   {
     path: "/networkError",
