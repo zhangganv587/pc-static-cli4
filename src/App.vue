@@ -7,12 +7,12 @@
 -->
 <template>
   <div id="app">
-    <layout />
+    <Layout />
     <Api v-if="showApi" />
   </div>
 </template>
 <script>
-import Layout from "@/layouts/index";
+import Layout from "@/layout/index";
 import Api from "components/base/v-api";
 export default {
   name: "App",

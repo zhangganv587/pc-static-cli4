@@ -11,12 +11,15 @@ import router from "./routers";
 import store from "./store";
 
 import "./assets/css/reset.css";
+import "@weiyi/vit-theme-default";
 
 import filters from "./filters/index";
 import utils from "./utils/index";
 import { get, post } from "./services/axios";
+import VIT from "@weiyi/vit";
 
 Vue.use(utils);
+Vue.use(VIT);
 
 Vue.prototype.$http = { get, post };
 
@@ -26,16 +29,6 @@ Object.keys(filters).forEach((item) => {
 });
 
 Vue.config.productionTip = false;
-
-// router.beforeEach((to, from, next) => {
-//   document.title = to.meta.title;
-//   const userInfo = sessionStorage.getItem("userInfo") || null;
-//   if (!userInfo && to.meta.auth) {
-//     next("/login");
-//   } else {
-//     next();
-//   }
-// });
 
 export default new Vue({
   el: "#app",
