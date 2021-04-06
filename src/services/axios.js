@@ -3,15 +3,19 @@
  * @Date: 2021-04-06 14:03:27
  * @LastEditors: zhanggan
  * @Description: 这里是描述
- * @FilePath: /gpay-pc-static/src/JS/ajax.js
+ * @FilePath: /pc-static-cli4/src/services/axios.js
  */
+/*eslint-disable*/
 import axios from "axios";
 import vm from "../main";
 import { baseApi } from "../config";
 
 /* 全局默认配置 */
 var http = axios.create({
-  baseURL: baseApi,
+  baseURL:
+    process.env.VUE_APP_ENV === "production"
+      ? baseApi
+      : baseApi + sessionStorage.getItem("api"),
   timeout: 5000,
 });
 /* 请求拦截器 */

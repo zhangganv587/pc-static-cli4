@@ -1,3 +1,11 @@
+/*
+ * @Author: zhanggan
+ * @Date: 2021-04-06 17:35:06
+ * @LastEditors: zhanggan
+ * @Description: 这里是描述
+ * @FilePath: /pc-static-cli4/src/utils/index.js
+ */
+/*eslint-disable*/
 export default {
   install(Vue, options) {
     Vue.prototype.util = {
