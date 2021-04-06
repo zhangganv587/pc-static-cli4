@@ -1,4 +1,4 @@
-# gpay-pc-static
+#  pc-static-cli4
 
 ## Project setup
 ```
