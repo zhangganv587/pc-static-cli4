@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import Layout from "@/layout/index";
+import Layout from "./layout/index";
 import Api from "components/base/v-api";
 export default {
   name: "App",

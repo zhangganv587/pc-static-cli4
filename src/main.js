@@ -30,7 +30,7 @@ Object.keys(filters).forEach((item) => {
 
 Vue.config.productionTip = false;
 
-export default new Vue({
+new Vue({
   el: "#app",
   router,
   store,

@@ -2,7 +2,7 @@
  * @Author: 张淦
  * @Date: 2020-02-13 09:56:46
  * @LastEditors: zhanggan
- * @Description: 收银台PC端
+ * @Description: layout
  * @FilePath: /pc-static-cli4/src/layout/index.vue
  -->
 <template>

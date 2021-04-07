@@ -27,11 +27,6 @@ export default [
       title: "首页",
     },
     children: [
-      {
-        path: "/",
-        redirect: "/index",
-        name: "index",
-      },
       ...Base,
       //   ...payRoute,
     ],

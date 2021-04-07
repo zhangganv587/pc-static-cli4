@@ -7,7 +7,6 @@
  */
 /*eslint-disable*/
 import axios from "axios";
-import vm from "../main";
 import { baseApi } from "../config";
 
 /* 全局默认配置 */
@@ -21,30 +20,74 @@ var http = axios.create({
 /* 请求拦截器 */
 http.interceptors.request.use(
   (config) => {
-    config.headers["Content-Type"] = "application/json;charset=UTF-8";
-    config.headers.timestamp = Math.floor(new Date().getTime() / 1000);
-    config.headers.token = sessionStorage.getItem("token") || "";
-    // 接口没返回时显示loadin
-    if (config.loading === true) {
-      vm.$loading.hide();
-      vm.$loading.show();
+    // 需要解决跨域问题的 不能加自定义头
+    if (config.forbiddenDefineHeaders) {
+      return config;
     }
     return config;
   },
-  (error) => {
-    vm.$loading.hide();
-    return Promise.reject(error);
+  (e) => {
+    console.log(e);
+    return Promise.reject(e);
   }
 );
+
 /* 响应拦截器 */
 http.interceptors.response.use(
-  (res) => {
-    vm.$loading.hide();
-    return res;
+  (res = {}) => {
+    try {
+      const status = res.status;
+      if (/^2\d{2}/.test(status)) {
+        const data = res && res.data;
+        if (Object.prototype.toString.call(data) === "[object Blob]") {
+          return Promise.resolve(data);
+        }
+        // 错误提示
+        if (data && +data.code !== 0 && data.message) {
+          if (res && res.config && res.config.noMessage) {
+            return;
+          }
+          Message({
+            message: data.message,
+            type: "warning",
+          });
+          return Promise.reject(data);
+        }
+        if (res && res.config && res.config.allDataResponse) {
+          return Promise.resolve(data);
+        } else {
+          return Promise.resolve(data && data.data);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+      return Promise.reject(e);
+    }
   },
-  (error) => {
-    vm.$loading.hide();
-    return Promise.reject(error);
+  // 非 2xx 状态响应
+  (e) => {
+    if (e && e.response && e.response.status >= 400) {
+      const { config, data } = e.response;
+      errorReport(config.url, data.message, config.data);
+      // 错误提示
+      if (e.response.data && e.response.data.message) {
+        Message({
+          message: e.response.data && e.response.data.message,
+          type: "warning",
+        });
+      } else {
+        Message({
+          message: "网络错误,请稍后再试",
+          type: "warning",
+        });
+      }
+    } else {
+      Message({
+        message: "网络错误,请稍后再试",
+        type: "warning",
+      });
+    }
+    return Promise.reject(e);
   }
 );
 

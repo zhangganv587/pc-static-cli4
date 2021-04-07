@@ -12,6 +12,11 @@ const payResult = () =>
 
 const base = [
   {
+    path: "/",
+    redirect: "/index",
+    name: "index",
+  },
+  {
     path: "/index",
     component: payIndex,
     meta: {

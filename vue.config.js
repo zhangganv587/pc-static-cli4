@@ -56,7 +56,6 @@ module.exports = {
 
   configureWebpack: (config) => {
     if (process.env.NODE_ENV === "production") {
-      config.plugins.push(new BundleAnalyzerPlugin());
       config.plugins.push(
         new CompressionPlugin({
           // gzip压缩配置
@@ -68,6 +67,9 @@ module.exports = {
           deleteOriginalAssets: false, // 是否删除原文件
         })
       );
+    }
+    if (process.env.VUE_APP_CURRENTMODE === "analyze") {
+      config.plugins.push(new BundleAnalyzerPlugin());
     }
   },
   // 是否为 Babel 或 TypeScript 使用 thread-loader。该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。
