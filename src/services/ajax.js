@@ -3,7 +3,7 @@
  * @Date: 2021-04-06 14:03:27
  * @LastEditors: zhanggan
  * @Description: 这里是描述
- * @FilePath: /gpay-pc-static/src/JS/ajax.js
+ * @FilePath: /pc-static-cli4/src/services/ajax.js
  */
 import axios from "axios";
 import vm from "../main";
@@ -47,7 +47,7 @@ http.interceptors.response.use(
 function get(url, data, loading) {
   return new Promise((resolve, reject) => {
     http
-      .get(url)
+      .get(url, data, { loading: loading })
       .then(
         (response) => {
           resolve(response.data);

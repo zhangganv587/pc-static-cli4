@@ -3,18 +3,18 @@
  * @Date: 2021-04-06 13:51:32
  * @LastEditors: zhanggan
  * @Description: mian.js
- * @FilePath: /gpay-pc-static/src/main.js
+ * @FilePath: /pc-static-cli4/src/main.js
  */
 import Vue from "vue";
 import App from "./App.vue";
-import router from "./router";
+import router from "./routers";
 import store from "./store";
 
 import "./assets/css/reset.css";
 
-import filters from "./JS/filter";
-import utils from "./JS/utils";
-import { get, post } from "./JS/ajax";
+import filters from "./filters";
+import utils from "./utils";
+import { get, post } from "./services/ajax";
 
 Vue.use(utils);
 
