@@ -14,7 +14,7 @@ import "./assets/css/reset.css";
 
 import filters from "./filters";
 import utils from "./utils";
-import { get, post } from "./services/ajax";
+import { get, post } from "./services/axios";
 
 Vue.use(utils);
 
