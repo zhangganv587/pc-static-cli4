@@ -3,18 +3,20 @@
  * @Date: 2021-04-06 13:55:36
  * @LastEditors: zhanggan
  * @Description: vue.config.js
- * @FilePath: /gpay-pc-static/vue.config.js
+ * @FilePath: /pc-static-cli4/vue.config.js
  */
 // vue.config.js
 const path = require("path");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const CompressionPlugin = require("compression-webpack-plugin"); // 引入gzip压缩插件
+const isProd = process.env.NODE_ENV === "production";
+const isDev = process.env.NODE_ENV === "development";
 
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
 module.exports = {
-  publicPath: "./",
+  publicPath: isDev ? "/" : "/new",
 
   // 将构建好的文件输出到哪里
   outputDir: "dist/static",
@@ -64,7 +66,7 @@ module.exports = {
   },
 
   configureWebpack: (config) => {
-    if (process.env.NODE_ENV === "production") {
+    if (isProd) {
       config.plugins.push(new BundleAnalyzerPlugin());
 
       config.plugins.push(
