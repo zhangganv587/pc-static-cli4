@@ -2,7 +2,7 @@
  * @Author: zhanggan
  * @Date: 2021-04-13 11:07:54
  * @LastEditors: zhanggan
- * @Description: 这里是描述
+ * @Description: layout
  * @FilePath: /pc-static-cli4/src/layout/index.vue
 -->
 <template>

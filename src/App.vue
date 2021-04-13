@@ -2,7 +2,7 @@
  * @Author: zhanggan
  * @Date: 2021-04-13 10:52:42
  * @LastEditors: zhanggan
- * @Description: 这里是描述
+ * @Description: app
  * @FilePath: /pc-static-cli4/src/App.vue
 -->
 <template>
