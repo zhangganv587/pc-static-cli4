@@ -12,7 +12,7 @@ const CompressionPlugin = require("compression-webpack-plugin"); // 引入gzip�
 const isProd = process.env.NODE_ENV === "production";
 // const isDev = process.env.NODE_ENV === "development";
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, dir);
 }
 module.exports = {
