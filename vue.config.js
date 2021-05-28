@@ -10,12 +10,15 @@ const path = require("path");
 const os = require("os");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const CompressionPlugin = require("compression-webpack-plugin"); // 引入gzip压缩插件
+const isProd = process.env.NODE_ENV === "production";
+const isDev = process.env.NODE_ENV === "development";
 
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
 module.exports = {
-  publicPath: "./",
+  publicPath: isDev ? "/" : "/new",
+
   // 将构建好的文件输出到哪里
   outputDir: "dist",
   // 放置生成的静态资源(js、css、img、fonts)的目录。
@@ -55,7 +58,9 @@ module.exports = {
   },
 
   configureWebpack: (config) => {
-    if (process.env.NODE_ENV === "production") {
+    if (isProd) {
+      config.plugins.push(new BundleAnalyzerPlugin());
+
       config.plugins.push(
         new CompressionPlugin({
           // gzip压缩配置

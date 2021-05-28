@@ -6,8 +6,7 @@
     "dev": "vue-cli-service serve --mode development",
     "test": "vue-cli-service build --mode test",
     "build": "vue-cli-service build --mode production",
-    "analyze": "vue-cli-service build --mode analyze",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint --fix"
   },
   "dependencies": {
     "@weiyi/vit": "^1.4.0-1",

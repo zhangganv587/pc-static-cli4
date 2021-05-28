@@ -5,12 +5,12 @@
  * @Description: 这里是描述
  * @FilePath: /pc-static-cli4/src/utils/index.js
  */
-/*eslint-disable*/
+/* eslint-disable */
 export default {
-  install(Vue, options) {
+  install (Vue, options) {
     Vue.prototype.util = {
       // 获取连接参数值
-      getUrlParams(name) {
+      getUrlParams (name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
         if (r != null) {
@@ -19,7 +19,7 @@ export default {
         return null;
       },
       // 判断设备处于PC还是移动端
-      isIOS() {
+      isIOS () {
         if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
           return true;
         } else {
@@ -27,7 +27,7 @@ export default {
         }
       },
       // 判断安卓或者ios终端
-      testMobileType() {
+      testMobileType () {
         const u = navigator.userAgent;
         const isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
         const isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
@@ -40,7 +40,7 @@ export default {
         }
       },
       // 校验手机号码
-      isPhone(val) {
+      isPhone (val) {
         var patrn = /^(((1[3456789][0-9]{1})|(15[0-9]{1}))+\d{8})$/;
         if (!patrn.test(val) || val === "") {
           return false;
@@ -49,7 +49,7 @@ export default {
         }
       },
       // 检验车牌号
-      isCarNum(val) {
+      isCarNum (val) {
         var patrn = /^([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1})$/;
         var patrn2 = /^([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))$/;
         if (!patrn.test(val) && !patrn2.test(val)) {
@@ -59,7 +59,7 @@ export default {
         }
       },
       // 校验车架号
-      isVehicle(val) {
+      isVehicle (val) {
         var patrn = /^[A-HJ-NP-Za-hj-np-z0-9]+$/;
         if (!patrn.test(val) || val === "") {
           return false;
@@ -68,7 +68,7 @@ export default {
         }
       },
       // 检验身份证号码
-      isSfz(idcard) {
+      isSfz (idcard) {
         var Errors = [
           1,
           "身份证号码位数不对",
@@ -179,7 +179,7 @@ export default {
         }
       },
       // 判断输入框是否有表情
-      isEmojiCharacter(substring) {
+      isEmojiCharacter (substring) {
         for (var i = 0; i < substring.length; i++) {
           const hs = substring.charCodeAt(i);
           if (hs >= 0xd800 && hs <= 0xdbff) {
@@ -220,7 +220,7 @@ export default {
         }
       },
       // 日期格式化
-      dateFormat(date, fmt) {
+      dateFormat (date, fmt) {
         var o = {
           "M+": date.getMonth() + 1,
           "d+": date.getDate(),
@@ -247,7 +247,7 @@ export default {
         return fmt;
       },
       // 时间格式化
-      TimeFormat(val, s) {
+      TimeFormat (val, s) {
         if (!val) {
           return "";
         }
@@ -271,7 +271,7 @@ export default {
         );
       },
       // 日期年月日
-      getDate(n) {
+      getDate (n) {
         var date = new Date();
         date.setDate(date.getDate() + n);
         var year = date.getFullYear();
@@ -282,11 +282,11 @@ export default {
         return year + "-" + month + "-" + day;
       },
       // 最多保留两位小数
-      formatMomey(num) {
+      formatMomey (num) {
         return Math.round(num * 100) / 100;
       },
       // 压缩图片
-      dealImage(path, obj, callback) {
+      dealImage (path, obj, callback) {
         var img = new Image();
         img.src = path;
         img.onload = function () {
@@ -320,7 +320,7 @@ export default {
         };
       },
       // 图片转成base64
-      getImgData(img, dir, next) {
+      getImgData (img, dir, next) {
         var image = new Image();
         image.onload = function () {
           var degree = 0;
@@ -369,7 +369,7 @@ export default {
         image.src = img;
       },
       // 防抖
-      _debounce(fn, delay) {
+      _debounce (fn, delay) {
         var delay1 = delay || 200;
         var timer;
         return function () {
@@ -385,7 +385,7 @@ export default {
         };
       },
       // 节流
-      _throttle(fn, interval) {
+      _throttle (fn, interval) {
         var last;
         var timer;
         var interval1 = interval || 200;
