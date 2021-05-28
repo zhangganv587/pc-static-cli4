@@ -1,0 +1,179 @@
+<!--
+ * @Author: 张淦
+ * @Date: 2020-04-29 15:52:25
+ * @LastEditors: zhanggan
+ * @Description: 商户系统 - 渠道账号管理 - 支付宝收款账号管理 - 支付宝开放平台秘钥弹框
+ * @FilePath: /gpay-ops-static/src/pages/merchant/channelManage/component/aliOpenPlatform.vue
+ -->
+<template>
+  <v-dialog
+    title="开放平台秘钥"
+    dialog-id="aliOpenPlatform"
+    @dialog-open="handleOpenForm"
+    @dialog-confirm="handleSubmitForm"
+    @dialog-close="handleResetForm"
+  >
+    <el-form
+      ref="dialogFormRef"
+      label-width="120px"
+      :model="formModel"
+      :rules="rules"
+    >
+      <el-form-item label="APPID：" prop="productId">
+        <el-input
+          v-model="formModel.productId"
+          autocomplete="off"
+          maxlength="25"
+          placeholder="请输入APPID"
+          :disabled="isEditDisabled"
+        />
+      </el-form-item>
+      <el-form-item label="应用公钥：" prop="publicKey">
+        <el-input
+          v-model="formModel.publicKey"
+          placeholder="请输入应用公钥"
+          clearable
+          type="textarea"
+          maxlength="2000"
+          show-word-limit
+          :disabled="isEditDisabled"
+          :rows="3"
+        />
+      </el-form-item>
+      <el-form-item label="应用私钥：" prop="privateKey">
+        <el-input
+          v-model="formModel.privateKey"
+          placeholder="请输入应用私钥"
+          clearable
+          type="textarea"
+          maxlength="2000"
+          show-word-limit
+          :disabled="isEditDisabled"
+          :rows="3"
+        />
+      </el-form-item>
+      <el-form-item label="支付宝公钥：" prop="aliPublicKey">
+        <el-input
+          v-model="formModel.aliPublicKey"
+          placeholder="请输入支付宝公钥"
+          clearable
+          type="textarea"
+          maxlength="2000"
+          show-word-limit
+          :disabled="isEditDisabled"
+          :rows="3"
+        />
+      </el-form-item>
+      <el-form-item label="AES秘钥：" prop="key">
+        <el-input
+          v-model="formModel.key"
+          maxlength="50"
+          placeholder="请输入AES秘钥"
+          clearable
+          :disabled="isEditDisabled"
+        />
+      </el-form-item>
+    </el-form>
+  </v-dialog>
+</template>
+
+<script>
+import dialogFormMixin from "@/mixins/dialogFormMixin";
+
+export default {
+  mixins: [dialogFormMixin],
+  data() {
+    this.rules = {
+      productId: [
+        { required: true, message: "请输入APPID", trigger: ["blur", "change"] },
+      ],
+      privateKey: [
+        {
+          required: true,
+          message: "请输入应用私钥",
+          trigger: ["blur", "change"],
+        },
+      ],
+      aliPublicKey: [
+        {
+          required: true,
+          message: "请输入支付宝公钥",
+          trigger: ["blur", "change"],
+        },
+      ],
+      key: [
+        {
+          required: true,
+          message: "请输入AES密钥",
+          trigger: ["blur", "change"],
+        },
+      ],
+    };
+    this.submitFormArr = [
+      {
+        url: "/pay/config/creat.json",
+        message: "新增开放平台秘钥",
+      },
+      {
+        url: "/pay/config/modify.json",
+        message: "修改开放平台秘钥",
+      },
+    ];
+    return {
+      isEditDisabled: false,
+      accountNo: null,
+      formModel: {
+        productId: null,
+        publicKey: null,
+        privateKey: null,
+        aliPublicKey: null,
+        key: null,
+      },
+    };
+  },
+  watch: {
+    rowData(newVal) {
+      if (newVal && typeof newVal === "object") {
+        this.accountNo = newVal.accountNo;
+        this.$store.commit("ACCOUNT_NO", newVal.accountNo);
+      }
+
+      this.$nextTick(() => {
+        this.$refs.dialogFormRef.clearValidate();
+      });
+    },
+  },
+  methods: {
+    handleOpenForm() {
+      this.handleSearch(this.$store.state.accountNo);
+    },
+    handleSearch(accountNo) {
+      this.$fetch("/pay/config/query.json", {
+        method: "post",
+        data: {
+          payWayCode: "alipay",
+          productType: 20,
+          accountNo,
+        },
+      }).then((res) => {
+        if (res.code === 0) {
+          if (res.data.dataList && res.data.dataList.length) {
+            this.formModel = res.data.dataList[0];
+          }
+        }
+      });
+    },
+    handleSubmitForm(callback) {
+      this.handleSubmit({
+        fetchData: {
+          ...this.formModel,
+          payWayCode: "alipay",
+          productType: 20,
+          accountNo: this.accountNo,
+        },
+        callback,
+      });
+    },
+  },
+};
+</script>

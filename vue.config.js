@@ -10,13 +10,13 @@ const path = require("path");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const CompressionPlugin = require("compression-webpack-plugin"); // 引入gzip压缩插件
 const isProd = process.env.NODE_ENV === "production";
-const isDev = process.env.NODE_ENV === "development";
+// const isDev = process.env.NODE_ENV === "development";
 
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, dir);
 }
 module.exports = {
-  publicPath: isDev ? "/" : "/new",
+  publicPath: "/",
 
   // 将构建好的文件输出到哪里
   outputDir: "dist/static",
@@ -63,6 +63,12 @@ module.exports = {
       args[0].terserOptions.compress.drop_console = true;
       return args;
     });
+    config.module
+      .rule("images")
+      .use("url-loader")
+      .loader("url-loader")
+      .tap((options) => Object.assign(options, { limit: 10 }))
+      .end();
   },
 
   configureWebpack: (config) => {
@@ -95,6 +101,7 @@ module.exports = {
     port: 8080, // 端口号
     https: false, // https:{type:Boolean}
     open: false, // 配置自动启动浏览器  open: 'Google Chrome'-默认启动谷歌
+    disableHostCheck: true, // 用于nginx配置 不检查host
 
     // 配置多个代理
     proxy: {

@@ -1,0 +1,63 @@
+/* 清除浮动 */
+.clearfloat() {
+  display: block;
+  height: 0;
+  clear: both;
+  content: '';
+}
+
+/* after 清除浮动 */
+.afterclear() {
+  &::after {
+    .clearfloat();
+  }
+}
+
+/* 内阴影 */
+.shadow-inset(@h: 0, @w: 1px, @spread: 0, @blur: 0, @color: #fff) {
+  box-shadow: @h @w @spread @blur @color inset;
+}
+
+/* 外阴影 */
+.shadow-out(@h: 0, @w: 1px, @spread: 0, @blur: 0, @color: #fff) {
+  box-shadow: @h @w @spread @blur @color;
+}
+
+/* 圆角 */
+.border-radius(@topL: 4px, @topR: 4px, @bottomR: 4px, @bottomL: 4px) {
+  border-top-left-radius: @topL;
+  border-top-right-radius: @topR;
+  border-bottom-right-radius: @bottomR;
+  border-bottom-left-radius: @bottomL;
+}
+
+/* 上下背景色渐变 */
+.gradient(@position: top, @startColor: #F2F2F2, @endColor: #D4D4D4) {
+  background: linear-gradient(@position, @startColor 0%, @endColor 100%);
+}
+
+/* 宽度计算 */
+.calc-width(@w1: 100%, @w2) {
+  width: calc(~"@{w1} - @{w2}");
+}
+
+/* 高度计算 */
+.calc-height(@h1, @h2) {
+  height: calc(~"@{h1} - @{h2}");
+}
+
+/* 限制一行显示 */
+.ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 限制多行显示 */
+.ellipsis-clamp(@lines) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @lines;
+}
