@@ -28,8 +28,8 @@ import VFooter from "components/base/v-footer";
 export default {
   name: "Layout",
   components: {
-    VHeader,
-    VFooter,
+    "v-header": VHeader,
+    "v-footer": VFooter,
   },
   data() {
     return {};

@@ -6,19 +6,19 @@
  * @FilePath: /pc-static-cli4/src/App.vue
 -->
 <template>
-  <div id="app">
-    <Layout />
-    <Api v-if="showApi" />
+  <div>
+    <v-layout />
+    <v-api v-if="showApi" />
   </div>
 </template>
 <script>
-import Layout from "./layout/index";
-import Api from "components/base/v-api";
+import VLayout from "./layout/index";
+import VApi from "components/base/v-api";
 export default {
   name: "App",
   components: {
-    Layout,
-    Api,
+    "v-layout": VLayout,
+    "v-api": VApi,
   },
   data() {
     return {
